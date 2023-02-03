@@ -19,6 +19,23 @@ const getAllProductsOfUSer = async (req, res) => {
   }
 }
 
+const createCart = async (req, res) => {
+  try {
+    const { totalPrice, userId, status } = req.body;
+    if (!totalPrice || !userId) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+    const cart = await CartServices.create({ totalPrice, userId, status: status || "pending" });
+    if (cart) {
+      res.status(201).json({ message: "Cart created" });
+    } else {
+      res.status(400).json({ message: "Something wrong" });
+    }
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 const addProductToCart = async (req, res) => {
   try {
     const { cartId, productId } = req.params;
@@ -87,4 +104,5 @@ module.exports = {
   addProductToCart,
   getAllProductsOfUSer,
   buy,
+  createCart,
 }

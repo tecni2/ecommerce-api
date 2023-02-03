@@ -49,7 +49,7 @@ const router = Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/productRequired"
+ *             $ref: "#/components/schemas/cartAddRequired"
  *     responses:
  *       201: 
  *         description: Created

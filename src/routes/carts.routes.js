@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { addProductToCart, getAllProductsOfUSer, buy } = require("../controllers/cart.controllers");
+const { addProductToCart, getAllProductsOfUSer, buy, createCart } = require("../controllers/cart.controllers");
 
 const router = Router();
 
@@ -51,7 +51,7 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Something wrong / Missing required fields / The quantity field cannot be greater than the available quantity of the product and the available quantity of the product cannot be 0 or less / There is no product with the id={productId} / No token provided
+ *                   example: Something wrong / Missing required fields / The quantity field cannot be greater than the available quantity of the product and the available quantity of the product cannot be 0 or less / There is no product with the id={productId} / There is no cart with the id={productId} / No token provided
  *       498: 
  *         description: Invalid token
  *         content:
@@ -152,9 +152,55 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Invalid token       
+ * /api/v1/carts:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: create a cart
+ *     tags: [Carts]
+ *     requestBody:
+ *       description: Required fields to create a cart into the app
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/cartAddRequired"
+ *     responses:
+ *       201: 
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Cart created
+ *       400: 
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Something wrong / Missing required fields
+ *       498: 
+ *         description: Invalid token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Invalid token       
  */
 
 router.post("/:cartId/products/:productId", addProductToCart);
+
+router.post("/", createCart);
 
 router.get("/:cartId/users/:userId", getAllProductsOfUSer);
 

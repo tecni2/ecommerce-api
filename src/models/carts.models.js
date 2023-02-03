@@ -14,6 +14,15 @@ const { DataTypes } = require("sequelize");
  *         price:
  *           type: decimal
  *           example: 12.80
+ *     cartRequired:
+ *       type: object
+ *       properties:
+ *         userId:
+ *           type: int
+ *           example: 10
+ *         totalPrice:
+ *           type: decimal
+ *           example: 12.80
  */
 
 const Carts = db.define("carts", {
