@@ -1,3 +1,4 @@
+const Carts = require("../models/carts.models");
 const Users = require("../models/users.models");
 const CartServices = require("../services/cart.services");
 const OrderServices = require("../services/order.services");
@@ -43,7 +44,7 @@ const addProductToCart = async (req, res) => {
     if (!quantity || !price) {
       return res.status(400).json({ message: "Missing required fields" });
     }
-    const cart = await CartServices.findByPk(cartId);
+    const cart = await Carts.findByPk(cartId);
     if (!cart) {
       return res.status(400).json({ message: "There is no cart with the id: " + cartId });
     }
