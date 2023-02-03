@@ -6,13 +6,11 @@ const ProductsInCarts = require("./products_in_carts.models");
 const ProductsInOrders = require("./products_in_orders.models");
 
 const initModels = () => {
-  ProductsInCarts
-  ProductsInOrders
   Users.hasMany(Products, { as: "products", foreignKey: "user_id" });
   Products.belongsTo(Users, { as: "owner", foreignKey: "user_id" });
 
   Users.hasOne(Carts, { as: "cart", foreignKey: "user_id" });
-  Carts.hasOne(Users, { as: "owner", foreignKey: "user_id" });
+  Carts.belongsTo(Users, { as: "owner", foreignKey: "user_id" });
 
   Users.hasMany(Orders, { as: "orders", foreignKey: "user_id" });
   Orders.belongsTo(Users, { as: "owner", foreignKey: "user_id" });
