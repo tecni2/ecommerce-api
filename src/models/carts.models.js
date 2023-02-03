@@ -10,7 +10,7 @@ const { DataTypes } = require("sequelize");
  *       properties:
  *         quantity:
  *           type: int
- *           example: 1
+ *           example: 10
  *         price:
  *           type: decimal
  *           example: 12.80
@@ -19,7 +19,7 @@ const { DataTypes } = require("sequelize");
  *       properties:
  *         userId:
  *           type: int
- *           example: 10
+ *           example: 1
  *         totalPrice:
  *           type: decimal
  *           example: 12.80
