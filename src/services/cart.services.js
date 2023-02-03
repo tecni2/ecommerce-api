@@ -12,7 +12,7 @@ class CartServices {
   }
   static async create(fields) {
     try {
-      const result = await CartServices.create(fields);
+      const result = await Carts.create(fields);
       return result;
     } catch (error) {
       throw error;
