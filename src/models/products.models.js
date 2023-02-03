@@ -80,7 +80,7 @@ const { DataTypes } = require("sequelize");
  *           example: 51.40
  *         userId: 
  *           type: int
- *           example: 2
+ *           example: 1
  */
 
 const Products = db.define("products", {
