@@ -26,6 +26,10 @@ const addProductToCart = async (req, res) => {
     if (!quantity || !price) {
       return res.status(400).json({ message: "Missing required fields" });
     }
+    const cart = await CartServices.findByPk(cartId);
+    if (!cart) {
+      return res.status(400).json({ message: "There is no product with the id: " + cartId });
+    }
     const fields = { cartId, productId, quantity, price, status: status || "pending" };
     const product = await ProductServices.getOne(productId);
     if (product) {
