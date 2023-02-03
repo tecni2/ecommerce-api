@@ -9,7 +9,11 @@ const getAllProductsOfUSer = async (req, res) => {
   try {
     const { cartId, userId } = req.params;
     const products = await CartServices.getAllProductsOf(cartId, userId);
-    res.json(products.products);
+    if (products) {
+      res.json(products.products);
+    } else {
+      res.status(400).json({ message: "Something wrong" });
+    }
   } catch (error) {
     res.status(400).json(error.message);
   }
