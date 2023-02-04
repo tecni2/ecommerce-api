@@ -18,7 +18,7 @@ const createProduct = async (req, res) => {
     const product = { name, price, userId, availableQty: availableQty || 0, image: image || "" };
     const result = await ProductServices.create(product);
     if (result) {
-      res.status(201).json({ message: "Product created" });
+      res.status(201).json({ message: "Product created", productId: result.id });
     } else {
       res.status(400).json({ message: "Something wrong" });
     }

@@ -9,8 +9,8 @@ require("dotenv").config;
 
 const getAllProductsOfUSer = async (req, res) => {
   try {
-    const { cartId, userId } = req.params;
-    const products = await CartServices.getAllProductsOf(cartId, userId);
+    const { cartId } = req.params;
+    const products = await CartServices.getAllProductsOf(cartId);
     if (products) {
       res.json(products.products);
     } else {
@@ -29,7 +29,7 @@ const createCart = async (req, res) => {
     }
     const cart = await CartServices.create({ userId, status: status || "pending" });
     if (cart) {
-      res.status(201).json({ message: "Cart created" });
+      res.status(201).json({ message: "Cart created", cartId: cart.id });
     } else {
       res.status(400).json({ message: "Something wrong" });
     }
@@ -48,11 +48,11 @@ const addProductToCart = async (req, res) => {
     const cart = await Carts.findByPk(cartId);
     if (!cart) {
       return res.status(400).json({ message: "There is no cart with the id: " + cartId });
-    }else if(cart.status == "purchased"){
+    } else if (cart.status == "purchased") {
       return res.status(400).json({ message: "Cannot add products in a purchased cart" });
     }
     const isProductInCart = ProductsInCarts.findOne({ where: { productId, cartId } });
-    if(isProductInCart){
+    if (isProductInCart) {
       return res.status(400).json({ message: "Cannot buy the same product again" });
     }
     const product = await ProductServices.getOne(productId);
@@ -91,6 +91,7 @@ const buy = async (req, res) => {
         const order = await OrderServices.create({ totalPrice: cart.totalPrice, userId: cart.userId });
         await productsInCart.products.forEach(async prod => {
           const { productId, quantity, price, status } = prod;
+          await ProductsInCarts.update({ status: "purchased" }, { where: { productId } });
           await OrderServices.addProduct({ productId, quantity, price, status, orderId: order.id });
           await transporter.sendMail({
             from: "tecni2.elie.elie@gmail.com",

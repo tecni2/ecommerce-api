@@ -62,11 +62,11 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Invalid token
- * /api/v1/carts/{cartId}/users/{userId}:
+ * /api/v1/carts/{cartId}:
  *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: get all products in a user's cart
+ *     summary: get all products in a cart
  *     tags: [Carts]
  *     parameters:
  *       - in: path
@@ -75,12 +75,6 @@ const router = Router();
  *           type: int
  *           minimum: 1
  *         description: The cart ID 
- *       - in: path
- *         name: userId
- *         schema:
- *           type: int
- *           minimum: 1
- *         description: The user ID 
  *     responses:
  *       200: 
  *         description: OK
@@ -108,7 +102,6 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Invalid token  
- * /api/v1/carts/{cartId}:
  *   put:
  *     security:
  *       - bearerAuth: []
@@ -176,6 +169,9 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Cart created
+ *                 cartId:
+ *                   type: int
+ *                   example: 5
  *       400: 
  *         description: Validation error
  *         content:
@@ -202,7 +198,7 @@ router.post("/:cartId/products/:productId", addProductToCart);
 
 router.post("/", createCart);
 
-router.get("/:cartId/users/:userId", getAllProductsOfUSer);
+router.get("/:cartId", getAllProductsOfUSer);
 
 router.put("/:cartId", buy);
 

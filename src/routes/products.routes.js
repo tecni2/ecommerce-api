@@ -61,6 +61,9 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: product created
+ *                 productId:
+ *                   type: int
+ *                   example: 5
  *       400: 
  *         description: Validation error
  *         content:

@@ -18,9 +18,9 @@ class CartServices {
       throw error;
     }
   }
-  static async getAllProductsOf(cartId, userId) {
+  static async getAllProductsOf(cartId) {
     try {
-      const result = await Carts.findOne({ where: { id: cartId, userId }, include: { model: ProductsInCarts, as: "products" } });
+      const result = await Carts.findOne({ where: { id: cartId}, include: { model: ProductsInCarts, as: "products" } });
       return result;
     } catch (error) {
       throw error;
