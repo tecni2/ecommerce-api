@@ -11,7 +11,7 @@ const routerApi = (app) => {
   app.use("/api/v1/auth", authRoutes);
   app.use("/api/v1/products", authMiddleware, productRoutes);
   app.use("/api/v1/carts", authMiddleware, cartRoutes);
-  app.use("/api/v1/orders", authMiddleware, orderRoutes);
+  app.use("/api/v1/orders", orderRoutes);
 };
 
 module.exports = routerApi;

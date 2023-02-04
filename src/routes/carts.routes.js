@@ -51,7 +51,7 @@ const router = Router();
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Something wrong / Missing required fields / The quantity field cannot be greater than the available quantity of the product and the available quantity of the product cannot be 0 or less / There is no product with the id={productId} / There is no cart with the id={productId} / No token provided
+ *                   example: Something wrong / Missing quantity field / The quantity field cannot be greater than the available quantity of the product and the available quantity of the product cannot be 0 or less / There is no product with the id={productId} / There is no cart with the id={productId} / No token provided / Cannot buy the same product again / Cannot add products in a purchased cart
  *       498: 
  *         description: Invalid token
  *         content:

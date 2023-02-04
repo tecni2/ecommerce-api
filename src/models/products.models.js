@@ -94,7 +94,7 @@ const Products = db.define("products", {
     allowNull: false,
   },
   price: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DECIMAL({ precision: 30, scale: 2 }),
     allowNull: false,
   },
   availableQty: {

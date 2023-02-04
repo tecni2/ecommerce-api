@@ -12,7 +12,7 @@ const ProductsInCarts = db.define("products_in_carts", {
     allowNull: false,
   },
   price: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DECIMAL({ precision: 30, scale: 2 }),
     allowNull: false,
   },
   status: {

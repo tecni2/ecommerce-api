@@ -1,4 +1,5 @@
 const Carts = require("../models/carts.models");
+const ProductsInCarts = require("../models/products_in_carts.models");
 const Users = require("../models/users.models");
 const CartServices = require("../services/cart.services");
 const OrderServices = require("../services/order.services");
@@ -22,11 +23,11 @@ const getAllProductsOfUSer = async (req, res) => {
 
 const createCart = async (req, res) => {
   try {
-    const { totalPrice, userId, status } = req.body;
-    if (!totalPrice || !userId) {
+    const { userId, status } = req.body;
+    if (!userId) {
       return res.status(400).json({ message: "Missing required fields" });
     }
-    const cart = await CartServices.create({ totalPrice, userId, status: status || "pending" });
+    const cart = await CartServices.create({ userId, status: status || "pending" });
     if (cart) {
       res.status(201).json({ message: "Cart created" });
     } else {
@@ -40,20 +41,29 @@ const createCart = async (req, res) => {
 const addProductToCart = async (req, res) => {
   try {
     const { cartId, productId } = req.params;
-    const { quantity, price, status } = req.body;
-    if (!quantity || !price) {
-      return res.status(400).json({ message: "Missing required fields" });
+    const { quantity, status } = req.body;
+    if (!quantity) {
+      return res.status(400).json({ message: "Missing quantity field" });
     }
     const cart = await Carts.findByPk(cartId);
     if (!cart) {
       return res.status(400).json({ message: "There is no cart with the id: " + cartId });
+    }else if(cart.status == "purchased"){
+      return res.status(400).json({ message: "Cannot add products in a purchased cart" });
     }
-    const fields = { cartId, productId, quantity, price, status: status || "pending" };
+    const isProductInCart = ProductsInCarts.findOne({ where: { productId, cartId } });
+    if(isProductInCart){
+      return res.status(400).json({ message: "Cannot buy the same product again" });
+    }
     const product = await ProductServices.getOne(productId);
     if (product) {
       if (product.availableQty >= quantity && product.availableQty > 0) {
+        const fields = { cartId, productId, quantity, price: product.price, status: status || "pending" };
         const result = await CartServices.addProduct(fields);
         if (result) {
+          const cartTotalPrice = parseFloat(cart.totalPrice) + parseFloat(product.price * quantity);
+          console.log("llego..................................................", cartTotalPrice);
+          await CartServices.update(cart.id, { totalPrice: cartTotalPrice });
           res.json({ message: "Product added" });
         } else {
           res.status(400).json({ message: "Something wrong" });

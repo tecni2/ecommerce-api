@@ -37,7 +37,7 @@ const Orders = db.define("orders", {
     type: DataTypes.INTEGER,
   },
   totalPrice: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DECIMAL({ precision: 30, scale: 2 }),
     allowNull: false,
     field: "total_price",
   },

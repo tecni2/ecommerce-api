@@ -12,7 +12,7 @@ const ProductsInOrders = db.define("products_in_orders", {
     defaultValue: 0,
   },
   price: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DECIMAL({ precision: 30, scale: 2 }),
     allowNull: false,
   },
   status: {

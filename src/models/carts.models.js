@@ -10,19 +10,13 @@ const { DataTypes } = require("sequelize");
  *       properties:
  *         quantity:
  *           type: int
- *           example: 10
- *         price:
- *           type: decimal
- *           example: 12.80
+ *           example: 3
  *     cartRequired:
  *       type: object
  *       properties:
  *         userId:
  *           type: int
  *           example: 1
- *         totalPrice:
- *           type: decimal
- *           example: 12.80
  */
 
 const Carts = db.define("carts", {
@@ -32,8 +26,8 @@ const Carts = db.define("carts", {
     type: DataTypes.INTEGER,
   },
   totalPrice: {
-    type: DataTypes.DECIMAL,
-    allowNull: false,
+    type: DataTypes.DECIMAL({ precision: 30, scale: 2 }),
+    defaultValue: 0,
     field: "total_price",
   },
   status: {

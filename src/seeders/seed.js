@@ -13,10 +13,10 @@ const users = [
 ];
 
 const products = [
-  { name: "Estudiar node", price: 20, userId: 1, availableQty: 100 },
-  { name: "Pasear al perro", price: 80, userId: 1, availableQty: 60 },
-  { name: "Lavar platos", price: 72.40, userId: 2, availableQty: 87 },
-  { name: "Ir al chequeo mensual", price: 60, userId: 3, availableQty: 300},
+  { name: "TV", price: 20, userId: 1, availableQty: 100 },
+  { name: "Curso de node js", price: 80, userId: 1, availableQty: 60 },
+  { name: "Teclado", price: 72.40, userId: 2, availableQty: 87 },
+  { name: "Monitor lenovo", price: 60, userId: 3, availableQty: 300 },
 ];
 
 const cart = [
