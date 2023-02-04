@@ -86,7 +86,7 @@ const buy = async (req, res) => {
             from: "tecni2.elie.elie@gmail.com",
             to: user.email,
             subject: "Cart purchased",
-            html: `<h1>Orden de compra en proceso</h1> <p>Su compra a sido confirmada, por favor espere hasta que el envío llegue a su casa</p> <p>Haga click en el siguiente <a target='new_blank' href='http://${process.env.APP_HOST}/api/v1/orders/users/${cart.userId}'>enlace</a> para verificar las ordenes que ha hecho en nuestra app</p>`,
+            html: `<h1>Orden de compra en proceso</h1> <p>Su compra a sido confirmada, por favor espere hasta que el envío llegue a su casa</p> <p>Haga click en el siguiente <a target='new_blank' href='${process.env.URL}/api/v1/orders/users/${cart.userId}'>enlace</a> para verificar las ordenes que ha hecho en nuestra app</p>`,
           })
         });
         res.json({ message: "Cart purchased" });
